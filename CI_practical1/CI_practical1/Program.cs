@@ -27,13 +27,11 @@ class Program
         int[,] sudokuIntArray = new int[N, N];
         
         //add input to array
-        string[] row;
         for (int i = 0; i < N; i++)
         {
-            row = input[i].Split(' ');
             for (int j = 0; j < N; j++)
             {
-                sudokuIntArray[i, j] = int.Parse(row[j]);
+                sudokuIntArray[i, j] = int.Parse(input[i]);
             }
         }
         //make a sudokuboard from the array
