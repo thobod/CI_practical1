@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 class SudokuBoard
 {
+    //this class represents the sudoku board. with all the values in it.
     Field[,] sudoku;
     int N;
     public SudokuBoard(int[,] sudokuboard, int N)

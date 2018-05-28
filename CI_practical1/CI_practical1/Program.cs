@@ -10,12 +10,12 @@ class Program
 {
     static void Main(string[] args)
     {
-
         makesudoku();
         Console.ReadLine();
     }
     public static SudokuBoard makesudoku() //reads the sudoku from console and converts it to a sudokuBoard
     {
+        //read input
         Console.WriteLine("give the root of N");
         int rootN = int.Parse(Console.ReadLine());
         List<string> input = new List<string>();
@@ -26,6 +26,7 @@ class Program
         int N = input.Count;
         int[,] sudokuIntArray = new int[N, N];
         
+        //add input to array
         string[] row;
         for (int i = 0; i < N; i++)
         {
@@ -35,6 +36,7 @@ class Program
                 sudokuIntArray[i, j] = int.Parse(row[j]);
             }
         }
+        //make a sudokuboard from the array
         SudokuBoard sudoku= new SudokuBoard(sudokuIntArray,N);
         return sudoku;
     }

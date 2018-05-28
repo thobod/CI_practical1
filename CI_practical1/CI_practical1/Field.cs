@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 class Field
 {
+    //this class keeps track of the value and weither or not the value is fixed.
     int value;
     bool isFixed;
     public Field(int value)
@@ -17,6 +18,7 @@ class Field
         else
             isFixed = false;
     }
+
     public int Value
     {
         get { return value; }
