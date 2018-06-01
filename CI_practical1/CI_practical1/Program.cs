@@ -12,21 +12,22 @@ class Program
     {
         SudokuBoard board = makesudoku();
         board.printSudoku();
-        Console.WriteLine("double values: " + board.evalueteBoard());
+        Console.WriteLine("Double values: " + board.evalueteBoard());
         Console.ReadLine();
     }
 
     public static SudokuBoard makesudoku() //reads the sudoku from console and converts it to a sudokuBoard
     {
         //read input
-        Console.WriteLine("give the root of N");
-        int rootN = int.Parse(Console.ReadLine());
+        Console.WriteLine("Paste the sudoku (numbers only)");
         List<string> input = new List<string>();
-        for (int i = 0; i < rootN * rootN; i++)
+        string firstLine = Console.ReadLine();
+        int N = firstLine.Length;
+        input.Add(firstLine);
+        for (int i = 1; i < N; i++)
         {
             input.Add(Console.ReadLine());
         }
-        int N = input.Count;
         int[,] sudokuIntArray = new int[N, N];
         
         //add input to array
