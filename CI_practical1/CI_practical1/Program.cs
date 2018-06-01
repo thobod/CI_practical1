@@ -10,7 +10,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        makesudoku();
+        SudokuBoard board = makesudoku();
+        board.printSudoku();
         Console.ReadLine();
     }
     public static SudokuBoard makesudoku() //reads the sudoku from console and converts it to a sudokuBoard
@@ -31,7 +32,7 @@ class Program
         {
             for (int j = 0; j < N; j++)
             {
-                sudokuIntArray[i, j] = int.Parse(input[i]);
+                sudokuIntArray[i, j] = int.Parse(input[i][j].ToString());
             }
         }
         //make a sudokuboard from the array
