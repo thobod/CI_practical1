@@ -12,8 +12,10 @@ class Program
     {
         SudokuBoard board = makesudoku();
         board.printSudoku();
+        Console.WriteLine("double values: " + board.evalueteBoard());
         Console.ReadLine();
     }
+
     public static SudokuBoard makesudoku() //reads the sudoku from console and converts it to a sudokuBoard
     {
         //read input

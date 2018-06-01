@@ -63,5 +63,37 @@ class SudokuBoard
             Console.WriteLine();
         }
     }
+
+    public int evalueteBoard() //evaluates alle vertical and horizontal lines on the board.
+    {
+        int doubleValues = 0;
+        for (int i = 0; i < N; i++)
+        {
+            doubleValues += evaluateLine(true, i);
+            doubleValues += evaluateLine(false, i);
+        }
+        return doubleValues;
+    }
+
+    public int evaluateLine(bool horizontal, int lineIndex)// evaluetes how many double values there are on one line.
+    {
+        int doubleValues = 0;
+        List<int> valuesInLine = new List<int>();
+        if(horizontal)
+            for (int i = 0; i < N; i++)
+            {
+                if (valuesInLine.Contains(sudoku[i, lineIndex].FieldValue))
+                    doubleValues++;
+                valuesInLine.Add(sudoku[i, lineIndex].FieldValue);
+            }
+        else
+            for (int i = 0; i < N; i++)
+            {
+                if (valuesInLine.Contains(sudoku[lineIndex, i].FieldValue))
+                    doubleValues++;
+                valuesInLine.Add(sudoku[lineIndex, i].FieldValue);
+            }
+        return doubleValues;
+    }
 }
 
