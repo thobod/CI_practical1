@@ -64,13 +64,13 @@ class SudokuBoard
         }
     }
 
-    public int evalueteBoard() //evaluates alle vertical and horizontal lines on the board.
+    public int[] evalueteBoard() //evaluates alle vertical and horizontal lines on the board.
     {
-        int doubleValues = 0;
-        for (int i = 0; i < N; i++)
+        int[] doubleValues = new int[2*N];
+        for (int i = 0; i < N*2; i= i+2)
         {
-            doubleValues += evaluateLine(true, i);
-            doubleValues += evaluateLine(false, i);
+            doubleValues[i] = evaluateLine(true, i/2);
+            doubleValues[i + 1] = evaluateLine(false, i/2);
         }
         return doubleValues;
     }
@@ -101,6 +101,12 @@ class SudokuBoard
         int memory = sudoku[x1, y1].FieldValue;
         sudoku[x1, y1].FieldValue = sudoku[x2, y2].FieldValue;
         sudoku[x2, y2].FieldValue = memory;
+    }
+
+    public Field[,] Sudoku
+    {
+        get { return sudoku; }
+        set { sudoku = value; }
     }
 
 }
