@@ -95,5 +95,13 @@ class SudokuBoard
             }
         return doubleValues;
     }
+
+    public void changeboard(int x1, int y1, int x2, int y2) //exchanges the values of 2 fields within the sudoku.
+    {
+        int memory = sudoku[x1, y1].FieldValue;
+        sudoku[x1, y1].FieldValue = sudoku[x2, y2].FieldValue;
+        sudoku[x2, y2].FieldValue = memory;
+    }
+
 }
 
