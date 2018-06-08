@@ -63,7 +63,6 @@ class search
                                             Console.WriteLine("i found " + currentScore.Sum() + " is lower than " + bestScore);
                                             bestScore = currentScore.Sum();
                                             bestChange = new Tuple<int, int, int, int>(i, j, x, y);
-                                            Console.WriteLine("best tuple: ({0}, {1}), ({2}, {3})", bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
                                             betterchange = true;
                                             
                                         }
@@ -80,10 +79,9 @@ class search
 
             if (betterchange)
             {
-                Console.WriteLine("actually used tuple: ({0}, {1}), ({2}, {3})", bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
-                Console.WriteLine(editableSudoku.evalueteBoard().Sum()+ "this is a better change:");
-                editableSudoku.changeboard(bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
-                Console.WriteLine(editableSudoku.evalueteBoard().Sum());
+                Console.WriteLine(sudoku.evalueteBoard().Sum()+ "this is a better change:");
+                sudoku.changeboard(bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
+                Console.WriteLine(sudoku.evalueteBoard().Sum());
             }
             //return the one with the best outcome
             if (index % 50 == 0)
