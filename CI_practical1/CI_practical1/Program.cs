@@ -10,7 +10,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        SudokuBoard board = makesudoku();
+        SudokuBoard board = Makesudoku();
         int N = 9;//hardcoding for the win, nahh this has to go soon.
         board.PrintSudoku();
         Console.WriteLine("Double values: " + board.EvalueteBoard());
@@ -28,7 +28,7 @@ class Program
         Console.ReadLine();
     }
 
-    public static SudokuBoard makesudoku() //reads the sudoku from console and converts it to a sudokuBoard
+    public static SudokuBoard Makesudoku() //reads the sudoku from console and converts it to a sudokuBoard
     {
         //read input
         Console.WriteLine("Paste the sudoku (numbers only)");
