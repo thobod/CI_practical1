@@ -33,8 +33,7 @@ class search
             int blockX = block % (int)Math.Sqrt(N);
             int blockY = block / (int)Math.Sqrt(N);
             currentScore = editableSudoku.evalueteBoard(); //to evalutate scores.
-            int[] previousScore = editableSudoku.evalueteBoard(); //to compare with
-            int bestScore = previousScore.Sum(); //best score so far, to compare with.
+            int bestScore = currentScore.Sum(); //best score so far, to compare with.
             Tuple<int, int, int, int> bestChange = new Tuple<int, int, int, int>(0, 0, 0, 0); //current best move gets saved here.
             bool betterchange = false; //if a better board than the current board is found this is changed to true
                                        //try all possible swaps within the block.
@@ -53,16 +52,20 @@ class search
                                     {
                                         editableSudoku.changeboard(i, j, x, y); //exchange 2 values from the board.
                                                                                 //reëvalutate all the updated lines
-                                        currentScore[(i * 2) + 1] = editableSudoku.evaluateLine(true, i);
-                                        currentScore[(j * 2)] = editableSudoku.evaluateLine(true, j);
-                                        currentScore[(x * 2) + 1] = editableSudoku.evaluateLine(true, x);
-                                        currentScore[(y * 2)] = editableSudoku.evaluateLine(true, y);
+                                                                                /*currentScore[(i * 2) + 1] = editableSudoku.evaluateLine(true, i);
+                                                                                currentScore[(j * 2)] = editableSudoku.evaluateLine(true, j);
+                                                                                currentScore[(x * 2) + 1] = editableSudoku.evaluateLine(true, x);
+                                                                                currentScore[(y * 2)] = editableSudoku.evaluateLine(true, y);*/
+                                        currentScore = editableSudoku.evalueteBoard();
                                         //check if the update inproved:
                                         if (currentScore.Sum() <= bestScore)// if the score is better or the same as the first one, set that as the best option.
                                         {
+                                            Console.WriteLine("i found " + currentScore.Sum() + " is lower than " + bestScore);
                                             bestScore = currentScore.Sum();
                                             bestChange = new Tuple<int, int, int, int>(i, j, x, y);
+                                            Console.WriteLine("best tuple: ({0}, {1}), ({2}, {3})", bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
                                             betterchange = true;
+                                            
                                         }
 
 
@@ -74,20 +77,18 @@ class search
 
                     }
                 }
+
             if (betterchange)
             {
-                Console.WriteLine(sudoku.evalueteBoard().Sum()+ "should be higher");
-                int memoryItem1 = sudoku.Sudoku[bestChange.Item1, bestChange.Item2].FieldValue;
-                sudoku.Sudoku[bestChange.Item1, bestChange.Item2].FieldValue = sudoku.Sudoku[bestChange.Item3, bestChange.Item4].FieldValue;
-                sudoku.Sudoku[bestChange.Item3, bestChange.Item4].FieldValue = memoryItem1;
-                Console.WriteLine(sudoku.evalueteBoard().Sum());
+                Console.WriteLine("actually used tuple: ({0}, {1}), ({2}, {3})", bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
+                Console.WriteLine(editableSudoku.evalueteBoard().Sum()+ "this is a better change:");
+                editableSudoku.changeboard(bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
+                Console.WriteLine(editableSudoku.evalueteBoard().Sum());
             }
-
-                //return the one with the best outcome
+            //return the one with the best outcome
             if (index % 50 == 0)
             {
                 sudoku.printSudoku();
-                Console.WriteLine(sudoku.evalueteBoard().Sum());
             }
                 
             if (index % 500 == 0)
