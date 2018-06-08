@@ -7,32 +7,32 @@ using System.Threading.Tasks;
 using static System.Random;
 
 
-class search
+class Search
 {
     Random r = new Random();
 
     SudokuBoard sudoku;
     int N;
 
-    public search(SudokuBoard sudoku, int N)
+    public Search(SudokuBoard sudoku, int N)
     {
         this.sudoku = sudoku;
         this.N = N;
     }
 
-    public void hillclimbing()
+    public void Hillclimbing()
     {
-        int[] currentScore = sudoku.evalueteBoard(); //to evalutate scores.
+        int[] currentScore = sudoku.EvalueteBoard(); //to evalutate scores.
         int index = 0;
         while (currentScore.Sum() > 0)
         {
             index++;
-            SudokuBoard editableSudoku = duplicateSudoku(sudoku); //this should make a whole copy of the board, but maybe it is only a referrence like with arrays, might be faulty.
+            SudokuBoard editableSudoku = DuplicateSudoku(sudoku); //this should make a whole copy of the board, but maybe it is only a referrence like with arrays, might be faulty.
                                                                   //choose a random block from the board.
             int block = r.Next(N);
             int blockX = block % (int)Math.Sqrt(N);
             int blockY = block / (int)Math.Sqrt(N);
-            currentScore = editableSudoku.evalueteBoard(); //to evalutate scores.
+            currentScore = editableSudoku.EvalueteBoard(); //to evalutate scores.
             int bestScore = currentScore.Sum(); //best score so far, to compare with.
             Tuple<int, int, int, int> bestChange = new Tuple<int, int, int, int>(0, 0, 0, 0); //current best move gets saved here.
             bool betterchange = false; //if a better board than the current board is found this is changed to true
@@ -50,13 +50,13 @@ class search
                                 if (x != currentFieldx && y != currentFieldy)
                                     if (!sudoku.Sudoku[x, y].IsFixed)
                                     {
-                                        editableSudoku.changeboard(i, j, x, y); //exchange 2 values from the board.
+                                        editableSudoku.Changeboard(i, j, x, y); //exchange 2 values from the board.
                                                                                 //reëvalutate all the updated lines
                                                                                 /*currentScore[(i * 2) + 1] = editableSudoku.evaluateLine(true, i);
                                                                                 currentScore[(j * 2)] = editableSudoku.evaluateLine(true, j);
                                                                                 currentScore[(x * 2) + 1] = editableSudoku.evaluateLine(true, x);
                                                                                 currentScore[(y * 2)] = editableSudoku.evaluateLine(true, y);*/
-                                        currentScore = editableSudoku.evalueteBoard();
+                                        currentScore = editableSudoku.EvalueteBoard();
                                         //check if the update inproved:
                                         if (currentScore.Sum() <= bestScore)// if the score is better or the same as the first one, set that as the best option.
                                         {
@@ -79,14 +79,14 @@ class search
 
             if (betterchange)
             {
-                Console.WriteLine(sudoku.evalueteBoard().Sum()+ "this is a better change:");
-                sudoku.changeboard(bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
-                Console.WriteLine(sudoku.evalueteBoard().Sum());
+                Console.WriteLine(sudoku.EvalueteBoard().Sum()+ "this is a better change:");
+                sudoku.Changeboard(bestChange.Item1, bestChange.Item2, bestChange.Item3, bestChange.Item4);
+                Console.WriteLine(sudoku.EvalueteBoard().Sum());
             }
             //return the one with the best outcome
             if (index % 50 == 0)
             {
-                sudoku.printSudoku();
+                sudoku.PrintSudoku();
             }
                 
             if (index % 500 == 0)
@@ -95,7 +95,7 @@ class search
 
     }
 
-    public SudokuBoard duplicateSudoku(SudokuBoard sudoku)
+    public SudokuBoard DuplicateSudoku(SudokuBoard sudoku)
     {
         int[,] values = new int[N, N];
         bool[,] fixedValues = new bool[N, N];

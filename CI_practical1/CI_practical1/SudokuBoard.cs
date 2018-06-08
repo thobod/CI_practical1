@@ -19,7 +19,7 @@ class SudokuBoard
             {
                 sudoku[i, j] = new Field(sudokuboard[i, j], (i / (int)Math.Sqrt(N)), (j / (int)Math.Sqrt(N)));
             }
-        randomizeboard();
+        Randomizeboard();
     }
     public SudokuBoard(int[,] sudokuboard, bool[,] fixedValues, int N)
     {
@@ -31,7 +31,7 @@ class SudokuBoard
                 sudoku[i, j] = new Field(sudokuboard[i, j], (i / (int)Math.Sqrt(N)), (j / (int)Math.Sqrt(N)), fixedValues[i,j]);
             }
     }
-    public void randomizeboard() //generates a random board, with unique values in each block, and the fixed values staying fixed.
+    public void Randomizeboard() //generates a random board, with unique values in each block, and the fixed values staying fixed.
     {
         for (int x = 0; x < N; x+= (int)Math.Sqrt(N)) //for every block in the board:
             for (int y = 0; y < N; y += (int)Math.Sqrt(N))
@@ -60,7 +60,7 @@ class SudokuBoard
             }
     }
 
-    public void printSudoku() //prints the sudoku to console.
+    public void PrintSudoku() //prints the sudoku to console.
     {
         for (int x = 0; x < N; x++)
         {
@@ -73,18 +73,18 @@ class SudokuBoard
         }
     }
 
-    public int[] evalueteBoard() //evaluates alle vertical and horizontal lines on the board.
+    public int[] EvalueteBoard() //evaluates alle vertical and horizontal lines on the board.
     {
         int[] doubleValues = new int[2*N];
         for (int i = 0; i < N*2; i= i+2)
         {
-            doubleValues[i] = evaluateLine(true, i/2);
-            doubleValues[i + 1] = evaluateLine(false, i/2);
+            doubleValues[i] = EvaluateLine(true, i/2);
+            doubleValues[i + 1] = EvaluateLine(false, i/2);
         }
         return doubleValues;
     }
 
-    public int evaluateLine(bool horizontal, int lineIndex)// evaluetes how many double values there are on one line.
+    public int EvaluateLine(bool horizontal, int lineIndex)// evaluetes how many double values there are on one line.
     {
         int doubleValues = 0;
         List<int> valuesInLine = new List<int>();
@@ -105,7 +105,7 @@ class SudokuBoard
         return doubleValues;
     }
 
-    public void changeboard(int x1, int y1, int x2, int y2) //exchanges the values of 2 fields within the sudoku.
+    public void Changeboard(int x1, int y1, int x2, int y2) //exchanges the values of 2 fields within the sudoku.
     {
         int memory = sudoku[x1, y1].FieldValue;
         sudoku[x1, y1].FieldValue = sudoku[x2, y2].FieldValue;
