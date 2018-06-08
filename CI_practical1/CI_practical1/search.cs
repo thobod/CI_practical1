@@ -27,12 +27,12 @@ class Search
         while (currentScore.Sum() > 0)
         {
             index++;
-            SudokuBoard editableSudoku = DuplicateSudoku(sudoku); //this should make a whole copy of the board, but maybe it is only a referrence like with arrays, might be faulty.
+            //SudokuBoard editableSudoku = DuplicateSudoku(sudoku); //this should make a whole copy of the board, but maybe it is only a referrence like with arrays, might be faulty.
                                                                   //choose a random block from the board.
             int block = r.Next(N);
             int blockX = block % (int)Math.Sqrt(N);
             int blockY = block / (int)Math.Sqrt(N);
-            currentScore = editableSudoku.EvalueteBoard(); //to evalutate scores.
+            currentScore = sudoku.EvalueteBoard(); //to evalutate scores.
             int bestScore = currentScore.Sum(); //best score so far, to compare with.
             Tuple<int, int, int, int> bestChange = new Tuple<int, int, int, int>(0, 0, 0, 0); //current best move gets saved here.
             bool betterchange = false; //if a better board than the current board is found this is changed to true
@@ -50,13 +50,14 @@ class Search
                                 if (x != currentFieldx || y != currentFieldy)
                                     if (!sudoku.Sudoku[x, y].IsFixed)
                                     {
-                                        editableSudoku.Changeboard(i, j, x, y); //exchange 2 values from the board.
-                                                                                //reëvalutate all the updated lines
-                                                                                /*currentScore[(i * 2) + 1] = editableSudoku.evaluateLine(true, i);
-                                                                                currentScore[(j * 2)] = editableSudoku.evaluateLine(true, j);
-                                                                                currentScore[(x * 2) + 1] = editableSudoku.evaluateLine(true, x);
-                                                                                currentScore[(y * 2)] = editableSudoku.evaluateLine(true, y);*/
-                                        currentScore = editableSudoku.EvalueteBoard();
+                                        sudoku.Changeboard(i, j, x, y); //exchange 2 values from the board.
+                                        currentScore = sudoku.EvalueteBoard();
+                                        sudoku.Changeboard(i, j, x, y);
+                                        //reëvalutate all the updated lines
+                                        /*currentScore[(i * 2) + 1] = editableSudoku.evaluateLine(true, i);
+                                        currentScore[(j * 2)] = editableSudoku.evaluateLine(true, j);
+                                        currentScore[(x * 2) + 1] = editableSudoku.evaluateLine(true, x);
+                                        currentScore[(y * 2)] = editableSudoku.evaluateLine(true, y);*/
                                         //check if the update inproved:
                                         if (currentScore.Sum() <= bestScore)// if the score is better or the same as the first one, set that as the best option.
                                         {
