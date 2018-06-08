@@ -47,7 +47,7 @@ class Search
                         for (int x = blockX * (int)Math.Sqrt(N); x < (blockX + 1) * (int)Math.Sqrt(N); x++) //swap with every non fixed field which also isnt itself
                             for (int y = blockY * (int)Math.Sqrt(N); y < (blockY + 1) * (int)Math.Sqrt(N); y++)
                             {
-                                if (x != currentFieldx && y != currentFieldy)
+                                if (x != currentFieldx || y != currentFieldy)
                                     if (!sudoku.Sudoku[x, y].IsFixed)
                                     {
                                         editableSudoku.Changeboard(i, j, x, y); //exchange 2 values from the board.
