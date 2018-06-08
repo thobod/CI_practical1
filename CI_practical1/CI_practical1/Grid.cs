@@ -22,8 +22,10 @@ class Grid
     //best one in ValuesArray
     public void GenerateSuccessor(int row, int column, ISearch searchFunction)
     {
-        List<int[,]> gridList = new List<int[,]>();
-        gridList.Add((int[,])ValuesArray.Clone());
+        List<int[,]> gridList = new List<int[,]>
+        {
+            ValuesArray;
+        };
         Tuple<int, int>[] swaps = GetSwappablePositions(row, column);
         for(int i = 0; i < swaps.Length; i++)
         {
