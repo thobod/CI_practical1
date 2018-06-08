@@ -11,20 +11,6 @@ class Program
     static void Main(string[] args)
     {
         SudokuBoard board = Makesudoku();
-        int N = 9;//hardcoding for the win, nahh this has to go soon.
-        board.PrintSudoku();
-        Console.WriteLine("Double values: " + board.EvalueteBoard());
-
-        //for testing purposese.
-        int[] test = board.EvalueteBoard();
-        for (int i = 0; i < test.Length; i++)
-        {
-            Console.Write(test[i] + " ");
-        }
-        Console.WriteLine();
-        Search search = new Search(board, N);
-        search.Hillclimbing();
-        //Console.WriteLine("the board will be better or the same if these values are exchanged: ({0}, {1}), ({2}, {3})", result.Item1, result.Item2, result.Item3, result.Item4);//if this returns (0,0) (0,0) no better value was found.
         Console.ReadLine();
     }
 
