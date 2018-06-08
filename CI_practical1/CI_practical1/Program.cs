@@ -34,7 +34,7 @@ class Program
         {
             for (int i = 0; i < N; i++)
             {
-                sudokuIntArray[i, j] = int.Parse(input[i][j].ToString());
+                sudokuIntArray[i, j] = int.Parse(input[j][i].ToString());
             }
         }
         //make a sudokuboard from the array
