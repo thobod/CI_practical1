@@ -24,7 +24,7 @@ class Grid
     {
         List<int[,]> gridList = new List<int[,]>
         {
-            ValuesArray;
+            ValuesArray
         };
         Tuple<int, int>[] swaps = GetSwappablePositions(row, column);
         for(int i = 0; i < swaps.Length; i++)
