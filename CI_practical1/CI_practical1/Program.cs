@@ -11,6 +11,7 @@ class Program
     static void Main(string[] args)
     {
         SudokuBoard board = Makesudoku();
+        board.Search(5000);
         Console.ReadLine();
     }
 
@@ -29,9 +30,9 @@ class Program
         int[,] sudokuIntArray = new int[N, N];
         
         //add input to array
-        for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
         {
-            for (int j = 0; j < N; j++)
+            for (int i = 0; i < N; i++)
             {
                 sudokuIntArray[i, j] = int.Parse(input[i][j].ToString());
             }

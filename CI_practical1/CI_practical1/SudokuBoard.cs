@@ -10,23 +10,23 @@ class SudokuBoard
     //this class represents the sudoku board. with all the values in it.
     Grid sudoku;
     int N;
+    ISearch searchFunction;
+
     public SudokuBoard(int[,] sudokuboard, int N)
     {
         this.N = N;
         sudoku = new Grid(N, sudokuboard);
+        searchFunction = new Iterated_Local_Search(sudoku, N);
+    }
+
+    public void Search(int iterations)
+    {
+        searchFunction.Search(iterations);
     }
 
     public void PrintSudoku() //prints the sudoku to console.
     {
-        for (int x = 0; x < N; x++)
-        {
-            for (int y = 0; y < N; y++)
-            {
-                Console.Write(sudoku.ValuesArray[x, y] + " ");
-
-            }
-            Console.WriteLine();
-        }
+        sudoku.PrintGrid();
     }
 }
 

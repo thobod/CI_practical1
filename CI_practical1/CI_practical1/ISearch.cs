@@ -6,5 +6,7 @@ using System.Threading.Tasks;
 
 interface ISearch
 {
-    int[,] ChooseSucessor(List<int[,]> successors);
+    Grid Grid {get; set;}
+    int[,] ChooseSucessor();
+    void Search(int iterations);
 }

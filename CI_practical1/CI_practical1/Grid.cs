@@ -12,31 +12,11 @@ class Grid
 
     public Grid(int N, int[,] board)
     {
+        fixedPositions = new HashSet<Tuple<int, int>>();
         ValuesArray = board;
         this.N = N;
         this.sqrtN = (int)Math.Sqrt(N);
         RandomizeGrid();
-    }
-
-    //Does all swaps possible in the block corresponding to the row and column number and saves the
-    //best one in ValuesArray
-    public void GenerateSuccessor(int row, int column, ISearch searchFunction)
-    {
-        List<int[,]> gridList = new List<int[,]>
-        {
-            ValuesArray
-        };
-        Tuple<int, int>[] swaps = GetSwappablePositions(row, column);
-        for(int i = 0; i < swaps.Length; i++)
-        {
-            for(int j = i + 1; j < swaps.Length; j++)
-            {
-                int[,] newGrid = Swap(swaps[i], swaps[j]);
-                gridList.Add(newGrid);
-            }
-        }
-
-        ValuesArray = searchFunction.ChooseSucessor(gridList);
     }
 
     //Randomize the empty spaces
@@ -72,7 +52,8 @@ class Grid
 
     public int[,] Swap(Tuple<int, int> a, Tuple<int, int> b)
     {
-        int[,] newArray = ValuesArray;
+        int[,] newArray = new int[N, N];
+        Array.Copy(ValuesArray, newArray, N * N);
         int temp = newArray[a.Item1, a.Item2];
         newArray[a.Item1, a.Item2] = newArray[b.Item1, b.Item2];
         if (newArray[a.Item1, a.Item2] == ValuesArray[a.Item1, a.Item2]) throw new Exception("Apparantly shit gets passed by reference");
@@ -122,5 +103,17 @@ class Grid
         }
 
         return swapPositions.ToArray();
+    }
+
+    public void PrintGrid()
+    {
+        for(int j = 0; j < N; j++)
+        {
+            for(int i = 0; i < N; i++)
+            {
+                Console.Write("{0} ", ValuesArray[i, j]);
+            }
+            Console.WriteLine();
+        }
     }
 }
