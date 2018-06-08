@@ -21,7 +21,16 @@ class SudokuBoard
             }
         randomizeboard();
     }
-
+    public SudokuBoard(int[,] sudokuboard, bool[,] fixedValues, int N)
+    {
+        sudoku = new Field[N, N];
+        this.N = N;
+        for (int i = 0; i < N; i++) //initiate the board with the given array of ints.
+            for (int j = 0; j < N; j++)
+            {
+                sudoku[i, j] = new Field(sudokuboard[i, j], (i / (int)Math.Sqrt(N)), (j / (int)Math.Sqrt(N)), fixedValues[i,j]);
+            }
+    }
     public void randomizeboard() //generates a random board, with unique values in each block, and the fixed values staying fixed.
     {
         for (int x = 0; x < N; x+= (int)Math.Sqrt(N)) //for every block in the board:

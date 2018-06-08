@@ -13,13 +13,21 @@ class Field
     int blockX, blockY; //the x and y coordinates of the block this field is a part of, in a 3x3 sudoku, the value at (4,1) would be in block (1,0) the value (7,8) in block (2,2) ect.
 
     public Field(int fieldValue, int blockX, int blockY)
-    { 
+    {
         //initiating the field.
         this.fieldValue = fieldValue;
         if (fieldValue > 0)
             isFixed = true;
         else
             isFixed = false;
+        this.blockX = blockX;
+        this.blockY = blockY;
+    }
+    public Field(int fieldValue, int blockX, int blockY, bool isFixed)
+    {
+        //initiating the field.
+        this.fieldValue = fieldValue;
+        this.isFixed = isFixed;
         this.blockX = blockX;
         this.blockY = blockY;
     }

@@ -23,8 +23,8 @@ class Program
         }
         Console.WriteLine();
         search search = new search(board, N);
-        Tuple<int, int, int, int> result = search.hillclimbing();
-        Console.WriteLine("the board will be better or the same if these values are exchanged: ({0}, {1}), ({2}, {3})", result.Item1, result.Item2, result.Item3, result.Item4);//if this returns (0,0) (0,0) no better value was found.
+        search.hillclimbing();
+        //Console.WriteLine("the board will be better or the same if these values are exchanged: ({0}, {1}), ({2}, {3})", result.Item1, result.Item2, result.Item3, result.Item4);//if this returns (0,0) (0,0) no better value was found.
         Console.ReadLine();
     }
 
