@@ -8,5 +8,5 @@ interface ISearch
 {
     Grid Grid {get; set;}
     int[,] ChooseSucessor();
-    void Search(int iterations);
+    bool Search(int iterations, params int[] searchParameters);
 }

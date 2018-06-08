@@ -7,40 +7,43 @@ using System.Threading.Tasks;
 class Iterated_Local_Search : ISearch
 {
     public Grid Grid { get; set; }
-    private int N, sqrtN, count, S;
+    private int N, sqrtN, S, S_Count, P_Threshold;
     private static Random random;
 
     public Iterated_Local_Search(Grid grid, int N)
     {
-        S = 0;
         random = new Random();
         this.Grid = grid;
         this.N = N;
         sqrtN = (int)Math.Sqrt(N);
     }
     
-    public void Search(int iterations)
+    public bool Search(int iterations, params int[] searchParameters)
     {
+        S = searchParameters[0];
+        P_Threshold = searchParameters[1];
         int sameScore = Grid.EvaluateGrid(Grid.ValuesArray);
-        count = 0;
+        S_Count = 0;
+        int count = 0;
         for (int i = 1; i <= iterations; i++)
         {
-            Console.WriteLine("Iteration {0}...", i);
+            //Console.WriteLine("Iteration {0}...", i);
             Grid.ValuesArray = ChooseSucessor();
-            if (S == 0 && Grid.EvaluateGrid(Grid.ValuesArray) == sameScore) count += 1;
+            if (S_Count == 0 && Grid.EvaluateGrid(Grid.ValuesArray) == sameScore) count += 1;
             else sameScore = Grid.EvaluateGrid(Grid.ValuesArray);
-            Console.WriteLine("Score: {0}", Grid.EvaluateGrid(Grid.ValuesArray));
+            //Console.WriteLine("Score: {0}", Grid.EvaluateGrid(Grid.ValuesArray));
             if(Grid.EvaluateGrid(Grid.ValuesArray) == 0)
             {
-                Console.WriteLine("Solution found:");
-                Grid.PrintGrid();
-                return;
+                //Console.WriteLine("Solution found:");
+                //Grid.PrintGrid();
+                return true;
             }
-            if(count > 50) { S = 10; count = 0; }
+            if(count > P_Threshold) { S_Count = S; count = 0; }
         }
-        Console.WriteLine("Solution not found after {0} iterations", iterations);
-        Console.WriteLine("Intermediary solution:");
-        Grid.PrintGrid();
+        //Console.WriteLine("Solution not found after {0} iterations, with Plateau Threshold {1} and S {2}", iterations, P_Threshold, S);
+        //Console.WriteLine("Intermediary solution:");
+        //Grid.PrintGrid();
+        return false;
     }
 
     public int[,] ChooseSucessor()
@@ -63,15 +66,15 @@ class Iterated_Local_Search : ISearch
             for (int j = i + 1; j < swaps.Length; j++)
             {
                 int[,] newGrid = Grid.Swap(swaps[i], swaps[j]);
-                if(S > 0)
+                if(S_Count > 0)
                 {
                     if (i == randomChosen) currGrid = newGrid;
                 }
-                else if (Grid.EvaluateGrid(newGrid) < Grid.EvaluateGrid(currGrid)) currGrid = newGrid;
+                else if (Grid.EvaluateGrid(newGrid) <= Grid.EvaluateGrid(currGrid)) currGrid = newGrid;
             }
         }
 
-        if (S > 0) S -= 1;
+        if (S_Count > 0) S_Count -= 1;
 
         return currGrid;
     }

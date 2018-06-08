@@ -11,7 +11,7 @@ class Program
     static void Main(string[] args)
     {
         SudokuBoard board = Makesudoku();
-        board.Search(5000);
+        board.Search(100);
         Console.ReadLine();
     }
 
