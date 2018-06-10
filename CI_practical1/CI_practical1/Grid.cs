@@ -16,9 +16,23 @@ class Grid
         ValuesArray = board;
         this.N = N;
         this.sqrtN = (int)Math.Sqrt(N);
+        FindFixedPoints();
         RandomizeGrid();
     }
 
+    public void FindFixedPoints()
+    {
+        for (int i = 0; i < N; i++)
+        {
+            for(int j = 0; j < N; j++)
+            {
+                if(ValuesArray[i,j] > 0)
+                {
+                    fixedPositions.Add(new Tuple<int, int>(i, j));
+                }
+            }
+        }
+    }
     //Randomize the empty spaces
     public void RandomizeGrid()
     {
@@ -27,17 +41,32 @@ class Grid
         {
             for(int column = 0; column < sqrtN; column++)
             {
+                //Console.WriteLine("Filling block ({0},{1}))", row, column);
                 HashSet<int> valuesToFill = new HashSet<int>(Enumerable.Range(1, N));
                 for(int i = 0; i < sqrtN; i++)
                 {
                     for(int j = 0; j < sqrtN; j++)
                     {
-                        if(ValuesArray[row * sqrtN + i, column * sqrtN + j] > 0)
+                        if(fixedPositions.Contains(new Tuple<int, int>(row * sqrtN + i, column * sqrtN + j)))
                         {
+                            //Console.WriteLine("({0},{1}) is fixed value {2}.", row * sqrtN + i, column * sqrtN + j, ValuesArray[row * sqrtN + i, column * sqrtN + j]);
                             valuesToFill.Remove(ValuesArray[row * sqrtN + i, column * sqrtN + j]);
-                            fixedPositions.Add(new Tuple<int, int>(row * sqrtN + i, column * sqrtN + j));
+                            /*Console.WriteLine("Removed the value. New valuestoFill is: ");
+                            Console.Write("{");
+                            for(int k = 0; k < valuesToFill.Count; k++)
+                            {
+                                Console.Write("{0} ", valuesToFill.ElementAt(k));
+                            }
+                            Console.Write("}");
+                            Console.WriteLine();*/
                         }
-                        else
+                    }
+                }
+                for(int i = 0; i < sqrtN; i++)
+                {
+                    for(int j = 0; j < sqrtN; j++)
+                    {
+                        if(ValuesArray[row * sqrtN + i, column * sqrtN + j] == 0)
                         {
                             int r = randomizer.Next(valuesToFill.Count);
                             ValuesArray[row * sqrtN + i, column * sqrtN + j] = valuesToFill.ElementAt(r);
