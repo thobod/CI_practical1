@@ -10,9 +10,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        SudokuBoard board = Makesudoku();
-        board.Search(3000);
-        Console.ReadLine();
+        while (true)
+        {
+            SudokuBoard board = Makesudoku();
+            board.Search(3000);
+            Console.WriteLine("Refreshing...");
+        }
     }
 
     public static SudokuBoard Makesudoku() //reads the sudoku from console and converts it to a sudokuBoard
