@@ -12,8 +12,16 @@ class Program
     {
         while (true)
         {
-            SudokuBoard board = Makesudoku();
-            board.Search(3000);
+            
+            int succespercentage = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                SudokuBoard board = Makesudoku();
+                if (board.Search(3000, 2, 2))
+                    succespercentage++;
+                board.resetBoard();
+            }
+            Console.WriteLine("succes percentage: "+succespercentage);
             Console.WriteLine("Refreshing...");
         }
     }
@@ -41,7 +49,7 @@ class Program
             }
         }
         //make a sudokuboard from the array
-        SudokuBoard sudoku= new SudokuBoard(sudokuIntArray,N);
+        SudokuBoard sudoku = new SudokuBoard(sudokuIntArray,N);
         return sudoku;
     }
 }

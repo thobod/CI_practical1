@@ -15,20 +15,35 @@ class SudokuBoard
 
     public SudokuBoard(int[,] sudokuboard, int N)
     {
-        preboard = sudokuboard;
+        preboard = new int[N, N];
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++)
+            {
+                preboard[i, j] = sudokuboard[i, j];
+            }
+
         this.N = N;
         sudoku = new Grid(N, sudokuboard);
         searchFunction = new Iterated_Local_Search(sudoku, N);
     }
 
-    public void Search(int iterations)
+    public bool Search(int iterations, int S, int P)
     {
-        searchFunction.Search(iterations, (int)Math.Sqrt(N), N);
+        return searchFunction.Search(iterations, S, P);
     }
 
     public void PrintSudoku() //prints the sudoku to console.
     {
         sudoku.PrintGrid();
+    }
+    public void resetBoard()
+    {
+        sudoku = new Grid(N, preboard);
+        searchFunction = new Iterated_Local_Search(sudoku, N);
+    }
+    public int[,] Preboard
+    {
+        get { return preboard; }
     }
 }
 

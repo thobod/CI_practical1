@@ -29,11 +29,11 @@ class Iterated_Local_Search : ISearch
         //Grid.PrintGrid();
         for (int i = 1; i <= iterations; i++)
         {
-            Console.WriteLine("Iteration {0}...", i);
+            //Console.WriteLine("Iteration {0}...", i);
             Grid.ValuesArray = ChooseSucessor();
             if (S_Count == 0 && Grid.EvaluateGrid(Grid.ValuesArray) == sameScore) count += 1;
             else sameScore = Grid.EvaluateGrid(Grid.ValuesArray);
-            Console.WriteLine("Score: {0}", Grid.EvaluateGrid(Grid.ValuesArray));
+            //Console.WriteLine("Score: {0}", Grid.EvaluateGrid(Grid.ValuesArray));
             if(Grid.EvaluateGrid(Grid.ValuesArray) == 0)
             {
                 Console.WriteLine("Solution found:");
