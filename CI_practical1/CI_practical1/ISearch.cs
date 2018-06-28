@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 interface ISearch
 {
     Grid Grid {get; set;}
-    int[,] ChooseSucessor();
+    //int[,] ChooseSucessor();
     bool Search(int iterations, params int[] searchParameters);
 }
